@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: broadway-model-town-tracker
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm run serve
+    envVars:
+      - key: PORT
+        value: 10000
