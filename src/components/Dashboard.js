@@ -4,6 +4,7 @@ import { ref as dbRef, update } from 'firebase/database';
 import { db } from '../firebase';
 import { TEAMS, CATS, STATUS_CFG, PARENT_GROUPS, CHILD_TO_PARENT } from '../constants';
 import { CPM, computePriority, getRippleImpact, calcGroupProgress, fmt, fmts, fiso } from '../utils';
+import AddTaskModal from './AddTaskModal';
 
 const PID = 'main';
 
@@ -27,6 +28,7 @@ export default function Dashboard({ tasks, cfg, team, userName }) {
   const [filterStatus, setFilterStatus] = useState('');
   const [filterPriority, setFilterPriority] = useState('');
   const [filterCrit, setFilterCrit] = useState(false);
+  const [showAddTask, setShowAddTask] = useState(false);
   const heroRef = useRef(null);
 
   const allTasks = Object.values(tasks);
@@ -220,6 +222,7 @@ export default function Dashboard({ tasks, cfg, team, userName }) {
             <label style={{ display:'flex', alignItems:'center', gap:5, fontSize:12, color:'#4a4a54', cursor:'pointer' }}>
               <input type="checkbox" checked={filterCrit} onChange={e=>setFilterCrit(e.target.checked)}/> Critical only
             </label>
+            <button className="btn btn-gold btn-sm" onClick={() => setShowAddTask(true)}>+ Add Task</button>
           </div>
         </div>
 
@@ -335,6 +338,7 @@ export default function Dashboard({ tasks, cfg, team, userName }) {
           );
         })}
       </div>
+      {showAddTask && <AddTaskModal tasks={tasks} team={team} userName={userName} onClose={() => setShowAddTask(false)} />}
     </div>
   );
 }

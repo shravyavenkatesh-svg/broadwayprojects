@@ -1,25 +1,42 @@
 // src/components/AppShell.js
 import { useState, useEffect } from 'react';
 import { signOut } from 'firebase/auth';
-import { auth } from '../firebase';
+import { ref as dbRef, onValue } from 'firebase/database';
+import { auth, db } from '../firebase';
 import { TEAMS } from '../constants';
 import Dashboard from './Dashboard';
 import FixtureTracker from './FixtureTracker';
 import GanttView from './GanttView';
 import AdminPanel from './AdminPanel';
+import POTracker from './POTracker';
 
-const TABS_ADMIN = [['dashboard','Dashboard'],['fixtures','Fixtures'],['gantt','Gantt'],['admin','Admin Panel']];
-const TABS_USER  = [['dashboard','Dashboard'],['fixtures','Fixtures'],['gantt','Gantt']];
+const TABS_ADMIN = [['dashboard','Dashboard'],['fixtures','Fixtures'],['pos','PO Tracker'],['gantt','Gantt'],['admin','Admin Panel']];
+const TABS_USER  = [['dashboard','Dashboard'],['fixtures','Fixtures'],['pos','PO Tracker'],['gantt','Gantt']];
 
 export default function AppShell({ user, team, userName, cfg, setCfg, tasks, fixtures, pos, users }) {
   const [tab, setTab] = useState('dashboard');
   const [countdown, setCountdown] = useState({ d:'--',h:'--',m:'--',s:'--' });
+  const [emailCfg, setEmailCfg] = useState({});
   const t = TEAMS[team] || TEAMS.admin;
+
+  // Load email config
+  useEffect(() => {
+    const unsub = onValue(dbRef(db, 'emailConfig'), snap => {
+      if (snap.exists()) {
+        const cfg = snap.val();
+        setEmailCfg(cfg);
+        if (cfg.publicKey && window.emailjs) {
+          try { window.emailjs.init({ publicKey: cfg.publicKey }); } catch(e) {}
+        }
+      }
+    });
+    return () => unsub();
+  }, []);
 
   useEffect(() => {
     const tick = () => {
-      const diff = new Date(cfg.launchDate+'T00:00:00') - new Date();
-      if(diff<=0){ setCountdown({d:0,h:0,m:0,s:0}); return; }
+      const diff = new Date(cfg.launchDate + 'T00:00:00') - new Date();
+      if (diff <= 0) { setCountdown({ d:0,h:0,m:0,s:0 }); return; }
       setCountdown({
         d: Math.floor(diff/86400000),
         h: Math.floor((diff%86400000)/3600000),
@@ -28,19 +45,19 @@ export default function AppShell({ user, team, userName, cfg, setCfg, tasks, fix
       });
     };
     tick(); const id = setInterval(tick,1000);
-    return ()=>clearInterval(id);
-  },[cfg.launchDate]);
+    return () => clearInterval(id);
+  }, [cfg.launchDate]);
 
-  const tabs = team==='admin' ? TABS_ADMIN : TABS_USER;
+  const tabs = team === 'admin' ? TABS_ADMIN : TABS_USER;
+  const pad = n => String(n).padStart(2,'0');
 
   const renderTab = () => {
-    if(tab==='dashboard') return <Dashboard tasks={tasks} cfg={cfg} team={team} userName={userName} />;
-    if(tab==='fixtures')  return <FixtureTracker fixtures={fixtures} team={team} userName={userName} />;
-    if(tab==='gantt')     return <GanttView tasks={tasks} cfg={cfg} />;
-    if(tab==='admin')     return <AdminPanel users={users} pos={pos} cfg={cfg} setCfg={setCfg} team={team} userName={userName} />;
+    if (tab === 'dashboard') return <Dashboard tasks={tasks} cfg={cfg} team={team} userName={userName} />;
+    if (tab === 'fixtures')  return <FixtureTracker fixtures={fixtures} team={team} userName={userName} />;
+    if (tab === 'pos')       return <POTracker pos={pos} team={team} userName={userName} emailCfg={emailCfg} />;
+    if (tab === 'gantt')     return <GanttView tasks={tasks} cfg={cfg} />;
+    if (tab === 'admin')     return <AdminPanel users={users} pos={pos} cfg={cfg} setCfg={setCfg} team={team} userName={userName} emailCfg={emailCfg} />;
   };
-
-  const pad = n => String(n).padStart(2,'0');
 
   return (
     <div style={{ minHeight:'100vh', background:'#f4f4f6' }}>
