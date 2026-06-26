@@ -25,7 +25,12 @@ function App() {
   // Init tasks in DB if not present
   const initTasks = async (startDate) => {
     const snap = await get(ref(db, `p/${PID}/tasks`));
-    if(snap.exists())return;
+    // Check if tasks are outdated by looking for new task IDs
+    const existing = snap.exists() ? snap.val() : {};
+    const hasNewTasks = DEFAULT_TASKS.some(t => !existing[t.id]);
+    const hasOldTasks = Object.keys(existing).some(k => !DEFAULT_TASKS.find(t => t.id === k) && k !== 'LAUNCH');
+    if(snap.exists() && !hasNewTasks && !hasOldTasks) return;
+    console.log('Re-initializing tasks from constants...');
     const taskMap = {};
     DEFAULT_TASKS.forEach(t => {
       taskMap[t.id] = { ...t, deps:t.deps||[], status:'not_started', completion:0,
