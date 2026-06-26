@@ -138,7 +138,6 @@ export default function AdminPanel({ users, cfg, setCfg, team, userName, emailCf
   );
 }
 
-const PID = 'main';
 
 export default function AdminPanel({ users, cfg, setCfg, team, userName }) {
   if(team!=='admin') return <div style={{ padding:48, textAlign:'center', color:'#7a7a88' }}>Admin access only.</div>;
