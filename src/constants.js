@@ -231,16 +231,16 @@ export const DEFAULT_TASKS = [
 
   // ── CIVIL & INTERIOR WORKS (WBS) ─────────────────────────────────────────
   // Durations = procurement + installation as per Summary WBS sheet
-  { id:'wc1',  name:'Flooring (21d proc + 40d install = 61d total)', team:'projects', category:'wbs_civil', duration:61, deps:['c1f','c1g','m1a','m1b'], status:'not_started', priority:'P1',
+  { id:'wc1',  name:'Flooring (21d proc + 40d install = 61d total)', team:'projects', category:'wbs_civil', duration:61, deps:['c1f','c1g','m1a','m1b'], procDays:21, installDays:40, status:'not_started', priority:'P1',
     plannedEnd:xl(46244),
     notes:'Rs.150/sqft paid by LL. Deps: Furniture Layout, Floor Conduit, Wall Fixture Elevations, Elec Points on Columns, Plumbing Layout, RCP Layout, SIS MEP Drawings, Metal Ceiling Truss, Active LED Ticker, Lighting Layout, Barrisol Layout. Share basis 70% approx for procurement' },
-  { id:'wc2',  name:'Facade Canopy Fabrication (7d proc + 30d install = 37d)', team:'projects', category:'wbs_civil', duration:37, deps:['c2a'], status:'not_started', priority:'P1',
+  { id:'wc2',  name:'Facade Canopy Fabrication (7d proc + 30d install = 37d)', team:'projects', category:'wbs_civil', duration:37, deps:['c2a'], procDays:7, installDays:30, status:'not_started', priority:'P1',
     plannedEnd:xl(46223),
     notes:'Deps: Facade Elevation, Electrical Drawing, Data Drawing, Metal Structure Drawing. FSA deliverable: ' + xl(46184) },
-  { id:'wc3',  name:'Glass Railing (55d proc + 14d install = 69d total)', team:'projects', category:'wbs_civil', duration:69, deps:['dp18'], status:'not_started', priority:'P2',
+  { id:'wc3',  name:'Glass Railing (55d proc + 14d install = 69d total)', team:'projects', category:'wbs_civil', duration:69, deps:['dp18'], procDays:55, installDays:14, status:'not_started', priority:'P2',
     plannedEnd:xl(46313),
     notes:'Deps: Glass Railing Layout, C/S or Elevation, Material Specification. FSA deliverable: ' + xl(46253) },
-  { id:'wc4',  name:'Toilet Finishing Items (30d proc + 14d install = 44d)', team:'projects', category:'wbs_civil', duration:44, deps:['wr4'], status:'not_started', priority:'P2',
+  { id:'wc4',  name:'Toilet Finishing Items (30d proc + 14d install = 44d)', team:'projects', category:'wbs_civil', duration:44, deps:['wr4'], procDays:30, installDays:14, status:'not_started', priority:'P2',
     plannedEnd:xl(46236),
     notes:'Deps: GFC, Finishing Items Layout, HVAC, Plumbing, RCP. Target handover: 16 June. FSA: ' + xl(46192) },
   { id:'wc5',  name:'Landscape Work (7d proc + 14d install = 21d)', team:'projects', category:'wbs_civil', duration:21, deps:['dp18'], status:'not_started', priority:'P3',
@@ -251,7 +251,7 @@ export const DEFAULT_TASKS = [
   { id:'wi1',  name:'Special Elements — Metal Ceiling Truss (30d proc + 14d install = 44d)', team:'projects', category:'wbs_int', duration:44, deps:['bq6'], status:'not_started', priority:'P1',
     plannedEnd:xl(46289),
     notes:'Deps: Truss Docket, RCP Layout. FSA deliverable: ' + xl(46201) },
-  { id:'wi2',  name:'Dry Partition & Wall Cladding (14d proc + 45d install = 45d)', team:'projects', category:'wbs_int', duration:45, deps:['c1c','c1d'], status:'not_started', priority:'P1',
+  { id:'wi2',  name:'Dry Partition & Wall Cladding (14d proc + 45d install = 45d)', team:'projects', category:'wbs_int', duration:45, deps:['c1c','c1d'], procDays:14, installDays:45, status:'not_started', priority:'P1',
     plannedEnd:xl(46237),
     notes:'Target: 20 June. Deps: Wall Cladding Drawing, Elevations, Dry Partition Drawing. FSA: ' + xl(46178) },
   { id:'wi3',  name:'Main Entrance Portal (14d proc + 45d install = 45d)', team:'projects', category:'wbs_int', duration:45, deps:['dp18'], status:'not_started', priority:'P1',
@@ -271,7 +271,7 @@ export const DEFAULT_TASKS = [
     notes:'Deps: Plumbing Layout, Sanitary Fittings Details, C&I Carpentry + Finishing Drawing, Electrical/Lighting Layout, HVAC Layout' },
 
   // ── ELECTRICAL (WBS) ─────────────────────────────────────────────────────
-  { id:'we1',  name:'LT Panel + Harmonic + DB (45d proc + 7d install = 52d)', team:'projects', category:'wbs_elec', duration:52, deps:['ms1'], status:'not_started', priority:'P0',
+  { id:'we1',  name:'LT Panel + Harmonic + DB (45d proc + 7d install = 52d)', team:'projects', category:'wbs_elec', duration:52, deps:['ms1'], procDays:45, installDays:7, status:'not_started', priority:'P0',
     plannedEnd:xl(46289),
     notes:'TARGET: 16 June. Deps: Electrical Load, SLD. Main power cable provided to LT Panel room by LL; BRDW installs panel. FSA: ' + xl(46192) },
   { id:'we2',  name:'DG Set (45d proc + 7d install = 52d)', team:'projects', category:'wbs_elec', duration:52, deps:['ms1'], status:'not_started', priority:'P0',
@@ -287,7 +287,7 @@ export const DEFAULT_TASKS = [
   { id:'wh1',  name:'Supply of High Side HVAC Machines (45d procurement)', team:'projects', category:'wbs_hvac', duration:45, deps:['ms3','ms2'], status:'not_started', priority:'P0',
     plannedEnd:xl(46244),
     notes:'TARGET: 16 June. Deps: DBR, Heat Load, Layout, Technical BOQ. FSA: ' + xl(46186) + '. Planned start: ' + xl(46189) },
-  { id:'wh2',  name:'HVAC Installation — Low Side (Copper Piping, Grills, Exhaust, Fresh Air = 45d)', team:'projects', category:'wbs_hvac', duration:45, deps:['wh1','ms4'], status:'not_started', priority:'P0',
+  { id:'wh2',  name:'HVAC Installation — Low Side (Copper Piping, Grills, Exhaust, Fresh Air = 45d)', team:'projects', category:'wbs_hvac', duration:45, deps:['wh1','ms4'], procDays:0, installDays:45, status:'not_started', priority:'P0',
     plannedEnd:xl(46289),
     notes:'TARGET: 16 June. Deps: HVAC Layout, Technical BOQ, Electrical Power Supply Details. Execution start: ' + xl(46244) },
 
@@ -308,7 +308,7 @@ export const DEFAULT_TASKS = [
     notes:'Deps: Furniture Layout, Electrical Layout, Data Layout' },
 
   // ── FURNITURE & FIXTURES (WBS) ───────────────────────────────────────────
-  { id:'wff1', name:'Furniture Fixtures + Loose Furniture SPIN (75d proc + 45d install = 120d)', team:'design', category:'wbs_fnf', duration:120, deps:['bq5'], status:'not_started', priority:'P0',
+  { id:'wff1', name:'Furniture Fixtures + Loose Furniture SPIN (75d proc + 45d install = 120d)', team:'design', category:'wbs_fnf', duration:120, deps:['bq5'], procDays:75, installDays:45, status:'not_started', priority:'P0',
     plannedEnd:xl(46289),
     notes:'⚠️ LONGEST LEAD ITEM OVERALL. Deps: Electrical Layout, Wall Elevation mapped with Furniture Elevation, Tiling, Wall Paint, Wall Finishing Cladding, RCP Layout, Driver Locations, Ply Support from Ceiling, Final Furniture Layout, BOQ, Complete Fixture Drawing Docket, Complete Shop Drawing Docket from EFPL. FSA: ' + xl(46169) + '. Execution start: ' + xl(46244) },
 
