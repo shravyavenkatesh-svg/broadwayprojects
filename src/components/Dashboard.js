@@ -227,8 +227,8 @@ export default function Dashboard({ tasks, cfg, team, userName }) {
         </div>
 
         {/* Column header */}
-        <div style={{ display:'grid', gridTemplateColumns:'42px 26px 1fr 90px 90px 80px 80px 60px 90px 110px 80px', gap:6, padding:'9px 16px', fontSize:10, letterSpacing:1.2, textTransform:'uppercase', color:'#7a7a88', fontFamily:'JetBrains Mono,monospace', fontWeight:500, background:'#f0f0f3', borderBottom:'1.5px solid rgba(0,0,0,0.12)' }}>
-          <div>Pri</div><div>#</div><div>Task</div><div>Team</div><div>Category</div><div>Planned</div><div>Projected</div><div>Float</div><div>Progress</div><div>Status</div><div>Updated</div>
+        <div style={{ display:'grid', gridTemplateColumns:'42px 26px 1fr 90px 90px 70px 70px 90px 80px 80px 60px 90px 80px', gap:6, padding:'9px 16px', fontSize:10, letterSpacing:1.2, textTransform:'uppercase', color:'#7a7a88', fontFamily:'JetBrains Mono,monospace', fontWeight:500, background:'#f0f0f3', borderBottom:'1.5px solid rgba(0,0,0,0.12)' }}>
+          <div>Pri</div><div>#</div><div>Task</div><div>Team</div><div>Category</div><div>Proc Days</div><div>Install Days</div><div>Target Start</div><div>Projected End</div><div>Float</div><div>Progress</div><div>Status</div><div>Updated</div>
         </div>
 
         {/* Groups */}
@@ -248,7 +248,7 @@ export default function Dashboard({ tasks, cfg, team, userName }) {
           return (
             <div key={g.id}>
               {/* Parent row */}
-              <div style={{ display:'grid', gridTemplateColumns:'42px 26px 1fr 90px 90px 80px 80px 60px 90px 110px 80px', gap:6, padding:'10px 16px', background:'#f0f0f3', borderLeft:`3px solid ${hasCrit?'#c0392b':'#b8860b'}`, borderBottom:'1.5px solid rgba(0,0,0,0.09)', alignItems:'center' }}>
+              <div style={{ display:'grid', gridTemplateColumns:'42px 26px 1fr 90px 90px 70px 70px 90px 80px 80px 60px 90px 80px', gap:6, padding:'10px 16px', background:'#f0f0f3', borderLeft:`3px solid ${hasCrit?'#c0392b':'#b8860b'}`, borderBottom:'1.5px solid rgba(0,0,0,0.09)', alignItems:'center' }}>
                 <div/>
                 <div><button onClick={()=>toggleGroup(g.id)} style={{ width:22, height:22, borderRadius:4, background:'#e4e4ea', border:'none', cursor:'pointer', fontSize:11, display:'inline-flex', alignItems:'center', justifyContent:'center', color:'#4a4a54' }}>{isCol?'▶':'▼'}</button></div>
                 <div>
@@ -268,7 +268,7 @@ export default function Dashboard({ tasks, cfg, team, userName }) {
                   {TEAMS[g.team]?.name}
                 </div>
                 <div><span style={{ fontSize:11, fontFamily:'JetBrains Mono,monospace', padding:'2px 7px', borderRadius:3, background:'#e4e4ea', color:'#4a4a54' }}>{CATS[g.category]||g.category}</span></div>
-                <div>—</div><div>—</div><div>—</div>
+                <div>—</div><div>—</div><div>—</div><div>—</div><div>—</div>
                 <div><span style={{ fontFamily:'JetBrains Mono,monospace', fontSize:13, fontWeight:700, color:prog.pct>=70?'#1a7a45':prog.pct>=30?'#c47d0e':'#c0392b' }}>{prog.pct}%</span></div>
                 <div>{badge(prog.status)}</div>
                 <div/>
@@ -287,7 +287,7 @@ export default function Dashboard({ tasks, cfg, team, userName }) {
                 const isQE=qeOpen===t.id;
                 return (
                   <div key={t.id} style={{ borderBottom:'1.5px solid rgba(0,0,0,0.06)' }}>
-                    <div data-task-id={t.id} style={{ display:'grid', gridTemplateColumns:'42px 26px 1fr 90px 90px 80px 80px 60px 90px 110px 80px', gap:6, padding:'10px 16px', background:'#fff', borderLeft:`3px solid ${isCrit?'#c0392b':'rgba(0,0,0,0.09)'}`, alignItems:'center', cursor:'pointer' }}
+                    <div data-task-id={t.id} style={{ display:'grid', gridTemplateColumns:'42px 26px 1fr 90px 90px 70px 70px 90px 80px 80px 60px 90px 80px', gap:6, padding:'10px 16px', background:'#fff', borderLeft:`3px solid ${isCrit?'#c0392b':'rgba(0,0,0,0.09)'}`, alignItems:'center', cursor:'pointer' }}
                       onMouseEnter={e=>e.currentTarget.style.background='rgba(0,0,0,0.01)'}
                       onMouseLeave={e=>e.currentTarget.style.background='#fff'}>
                       <div><PriBadge p={pri}/></div>
@@ -318,8 +318,10 @@ export default function Dashboard({ tasks, cfg, team, userName }) {
                         {TEAMS[t.team]?.name}
                       </div>
                       <div><span style={{ fontSize:11, fontFamily:'JetBrains Mono,monospace', padding:'2px 7px', borderRadius:3, background:'#f0f0f3', color:'#4a4a54' }}>{CATS[t.category]||t.category}</span></div>
-                      <div style={{ fontFamily:'JetBrains Mono,monospace', fontSize:12 }}>{fmts(t.plannedEnd)||'—'}</div>
-                      <div style={{ fontFamily:'JetBrains Mono,monospace', fontSize:12, color:isCrit?'#c0392b':'#4a4a54' }}>{fmts(ct2?.ef)||'—'}</div>
+                      <div style={{ fontFamily:'JetBrains Mono,monospace', fontSize:12, color:'#1a5fa8', textAlign:'center' }}>{t.procDays||'—'}</div>
+                      <div style={{ fontFamily:'JetBrains Mono,monospace', fontSize:12, color:'#5b4aaa', textAlign:'center' }}>{t.installDays||'—'}</div>
+                      <div style={{ fontFamily:'JetBrains Mono,monospace', fontSize:12, color:'#b8860b' }}>{fmts(t.targetStart)||fmts(t.plannedStart)||'—'}</div>
+                      <div style={{ fontFamily:'JetBrains Mono,monospace', fontSize:12, color:isCrit?'#c0392b':'#4a4a54' }}>{fmts(ct2?.ef)||fmts(t.plannedEnd)||'—'}</div>
                       <div style={{ fontFamily:'JetBrains Mono,monospace', fontSize:12, color:fl===null?'#7a7a88':fl<0?'#c0392b':fl<7?'#c47d0e':'#1a7a45' }}>{fl!==null?fl+'d':'—'}</div>
                       <div style={{ display:'flex', alignItems:'center', gap:6 }}>
                         <div className="pw" style={{ width:52 }}><div className={`pf ${t.status==='done'?'pf-g':'pf-a'}`} style={{ width:`${t.status==='done'?100:(t.completion||0)}%` }}/></div>
