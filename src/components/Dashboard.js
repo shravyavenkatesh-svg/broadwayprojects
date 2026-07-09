@@ -91,10 +91,10 @@ export default function Dashboard({ tasks, cfg, team, userName }) {
     <div>
       {/* Ripple Banner */}
       {rippleBanner && (
-        <div style={{ background:'rgba(212,168,67,0.1)', border:'1.5px solid rgba(212,168,67,0.4)', borderRadius:8, padding:'14px 18px', marginBottom:16, display:'flex', alignItems:'flex-start', gap:14 }}>
+        <div style={{ background:'#f5f5f5', border:'1.5px solid #000', borderRadius:8, padding:'14px 18px', marginBottom:16, display:'flex', alignItems:'flex-start', gap:14 }}>
           <div style={{ fontSize:22, flexShrink:0 }}>↻</div>
           <div style={{ flex:1 }}>
-            <div style={{ fontSize:14, fontWeight:700, color:'#b8860b', marginBottom:8 }}>
+            <div style={{ fontSize:14, fontWeight:700, color:'#000', marginBottom:8 }}>
               {rippleBanner.impacts.length} task{rippleBanner.impacts.length!==1?'s':''} recalculated{rippleBanner.shift!==0?` · Launch ${rippleBanner.shift>0?'delayed +'+rippleBanner.shift+'d':'pulled forward '+Math.abs(rippleBanner.shift)+'d'}`:''}
             </div>
             {rippleBanner.impacts.slice(0,4).map(imp=>(
@@ -102,7 +102,7 @@ export default function Dashboard({ tasks, cfg, team, userName }) {
                 <span style={{ flex:1, fontWeight:500 }}>{imp.name}</span>
                 <span style={{ color:'#7a7a88', textDecoration:'line-through', fontFamily:'JetBrains Mono,monospace', fontSize:11 }}>{fmts(imp.oldDate)}</span>
                 <span style={{ color:'#7a7a88', margin:'0 4px' }}>→</span>
-                <span style={{ color:'#b8860b', fontFamily:'JetBrains Mono,monospace', fontSize:13, fontWeight:700 }}>{fmts(imp.newDate)}</span>
+                <span style={{ color:'#000', fontFamily:'JetBrains Mono,monospace', fontSize:13, fontWeight:700 }}>{fmts(imp.newDate)}</span>
                 <span style={{ fontSize:10, padding:'1px 6px', borderRadius:3, fontFamily:'JetBrains Mono,monospace', background:imp.shift>0?'rgba(192,57,43,0.1)':'rgba(26,122,69,0.1)', color:imp.shift>0?'#c0392b':'#1a7a45' }}>{imp.shift>0?'+':''}{imp.shift}d</span>
               </div>
             ))}
@@ -137,14 +137,14 @@ export default function Dashboard({ tasks, cfg, team, userName }) {
         <div className="card">
           <div style={{ fontSize:11, letterSpacing:2, textTransform:'uppercase', color:'#7a7a88', fontFamily:'JetBrains Mono,monospace', marginBottom:14 }}>Task Status Distribution</div>
           <div style={{ display:'flex', height:28, borderRadius:6, overflow:'hidden', marginBottom:14, gap:2 }}>
-            {done>0&&<div style={{ width:`${Math.round((done/all.length)*100)}%`, background:'#1a7a45', display:'flex', alignItems:'center', justifyContent:'center', fontSize:10, fontFamily:'JetBrains Mono,monospace', color:'#fff', fontWeight:700 }}>{Math.round((done/all.length)*100)}%</div>}
-            {wip>0&&<div style={{ width:`${Math.round((wip/all.length)*100)}%`, background:'#c47d0e', display:'flex', alignItems:'center', justifyContent:'center', fontSize:10, fontFamily:'JetBrains Mono,monospace', color:'#fff', fontWeight:700 }}>{Math.round((wip/all.length)*100)}%</div>}
-            {blk>0&&<div style={{ width:`${Math.round((blk/all.length)*100)}%`, background:'#c0392b', display:'flex', alignItems:'center', justifyContent:'center', fontSize:10, fontFamily:'JetBrains Mono,monospace', color:'#fff', fontWeight:700 }}>{blk}</div>}
+            {done>0&&<div style={{ width:`${Math.round((done/all.length)*100)}%`, background:'#000', display:'flex', alignItems:'center', justifyContent:'center', fontSize:10, fontFamily:'JetBrains Mono,monospace', color:'#fff', fontWeight:700 }}>{Math.round((done/all.length)*100)}%</div>}
+            {wip>0&&<div style={{ width:`${Math.round((wip/all.length)*100)}%`, background:'#555', display:'flex', alignItems:'center', justifyContent:'center', fontSize:10, fontFamily:'JetBrains Mono,monospace', color:'#fff', fontWeight:700 }}>{Math.round((wip/all.length)*100)}%</div>}
+            {blk>0&&<div style={{ width:`${Math.round((blk/all.length)*100)}%`, background:'#888', display:'flex', alignItems:'center', justifyContent:'center', fontSize:10, fontFamily:'JetBrains Mono,monospace', color:'#fff', fontWeight:700 }}>{blk}</div>}
             <div style={{ flex:1, background:'#e4e4ea', display:'flex', alignItems:'center', justifyContent:'center', fontSize:10, fontFamily:'JetBrains Mono,monospace', color:'#7a7a88', fontWeight:500 }}>{Math.round((ns/all.length)*100)}%</div>
           </div>
           <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:8 }}>
             {[['Done',done,'#1a7a45','rgba(26,122,69,0.06)','rgba(26,122,69,0.15)'],['In Progress',wip,'#c47d0e','rgba(196,125,14,0.06)','rgba(196,125,14,0.15)'],['Blocked',blk,'#c0392b','rgba(192,57,43,0.06)','rgba(192,57,43,0.15)'],['Not Started',ns,'#7a7a88','#f0f0f3','rgba(0,0,0,0.09)']].map(([lbl,cnt,col,bg,border])=>(
-              <div key={lbl} style={{ display:'flex', alignItems:'center', justifyContent:'space-between', padding:'8px 10px', background:bg, borderRadius:6, border:`1px solid ${border}` }}>
+              <div key={lbl} style={{ display:'flex', alignItems:'center', justifyContent:'space-between', padding:'8px 10px', background:bg, borderRadius:6, border:'1px solid #ddd' }}>
                 <span style={{ fontSize:13, color:col, fontWeight:500 }}>{lbl}</span>
                 <div style={{ textAlign:'right' }}>
                   <div style={{ fontFamily:'JetBrains Mono,monospace', fontSize:18, fontWeight:700, color:col, lineHeight:1 }}>{cnt}</div>
@@ -161,29 +161,29 @@ export default function Dashboard({ tasks, cfg, team, userName }) {
       </div>
 
       {/* Hero */}
-      <div ref={heroRef} className={`card`} style={{ padding:'28px 32px', marginBottom:20, background:'linear-gradient(135deg,#fff,#fafafa)', border:'1.5px solid rgba(0,0,0,0.15)' }}>
+      <div ref={heroRef} className={`card`} style={{ padding:'28px 32px', marginBottom:20, background:'#fff', border:'1.5px solid rgba(0,0,0,0.15)' }}>
         <div style={{ fontSize:11, letterSpacing:2, textTransform:'uppercase', color:'#7a7a88', fontFamily:'JetBrains Mono,monospace', marginBottom:6 }}>🔮 Critical Path Engine — Projected Launch</div>
-        <div style={{ fontFamily:'Bebas Neue,sans-serif', fontSize:56, letterSpacing:3, lineHeight:1, color:isAhead?'#1a7a45':'#c0392b' }}>{fmt(projLaunch)}</div>
-        <div style={{ fontSize:14, fontFamily:'JetBrains Mono,monospace', margin:'6px 0 16px', fontWeight:500, color:isAhead?'#1a7a45':'#c0392b' }}>
+        <div style={{ fontFamily:'Bebas Neue,sans-serif', fontSize:56, letterSpacing:3, lineHeight:1, color:'#000' }}>{fmt(projLaunch)}</div>
+        <div style={{ fontSize:14, fontFamily:'JetBrains Mono,monospace', margin:'6px 0 16px', fontWeight:500, color:'#000' }}>
           {isAhead ? `✓  ${gap} days ahead of target (${fmt(cfg.launchDate)})` : `⚠  ${Math.abs(gap)} days BEHIND target`}
         </div>
         <div style={{ maxWidth:660 }}>
           <div style={{ height:10, background:'#e4e4ea', borderRadius:5, position:'relative' }}>
             <div style={{ width:`${todayPct}%`, height:'100%', borderRadius:5, background:isAhead?'#1a7a45':'#c0392b' }}/>
-            <div style={{ position:'absolute', top:-3, left:`${targetPct}%`, width:2.5, height:16, background:'#b8860b', borderRadius:2 }}/>
+            <div style={{ position:'absolute', top:-3, left:`${targetPct}%`, width:2.5, height:16, background:'#000', borderRadius:2 }}/>
           </div>
           <div style={{ display:'flex', justifyContent:'space-between', marginTop:5, fontSize:11, fontFamily:'JetBrains Mono,monospace', color:'#7a7a88' }}>
             <span>{fmt(cfg.startDate)} — Start</span>
-            <span style={{ color:'#b8860b' }}>◆ Target: {fmt(cfg.launchDate)}</span>
-            <span style={{ color:isAhead?'#1a7a45':'#c0392b' }}>Projected: {fmt(projLaunch)}</span>
+            <span style={{ color:'#000' }}>◆ Target: {fmt(cfg.launchDate)}</span>
+            <span style={{ color:'#000' }}>Projected: {fmt(projLaunch)}</span>
           </div>
         </div>
         {cp.length>0 && (
           <div style={{ marginTop:12 }}>
             <div style={{ fontSize:11, letterSpacing:1.5, textTransform:'uppercase', color:'#7a7a88', fontFamily:'JetBrains Mono,monospace', marginBottom:6 }}>⚡ Critical Path:</div>
             <div style={{ display:'flex', flexWrap:'wrap', gap:5 }}>
-              {cp.slice(0,8).map(id=><span key={id} style={{ fontSize:11, fontFamily:'JetBrains Mono,monospace', padding:'3px 9px', borderRadius:4, background:'rgba(192,57,43,0.08)', border:'1px solid rgba(192,57,43,0.2)', color:'#c0392b' }}>⚡ {tasks[id]?.name||id}</span>)}
-              {cp.length>8&&<span style={{ fontSize:11, fontFamily:'JetBrains Mono,monospace', padding:'3px 9px', borderRadius:4, background:'rgba(192,57,43,0.08)', border:'1px solid rgba(192,57,43,0.2)', color:'#c0392b' }}>+{cp.length-8} more</span>}
+              {cp.slice(0,8).map(id=><span key={id} style={{ fontSize:11, fontFamily:'JetBrains Mono,monospace', padding:'3px 9px', borderRadius:4, background:'#f5f5f5', border:'1px solid #ddd', color:'#000' }}>⚡ {tasks[id]?.name||id}</span>)}
+              {cp.length>8&&<span style={{ fontSize:11, fontFamily:'JetBrains Mono,monospace', padding:'3px 9px', borderRadius:4, background:'#f5f5f5', border:'1px solid #ddd', color:'#000' }}>+{cp.length-8} more</span>}
             </div>
           </div>
         )}
@@ -201,7 +201,7 @@ export default function Dashboard({ tasks, cfg, team, userName }) {
       <div style={{ background:'#fff', border:'1.5px solid rgba(0,0,0,0.09)', borderRadius:8, overflow:'hidden' }}>
         {/* Toolbar */}
         <div style={{ background:'#f0f0f3', padding:'12px 16px', display:'flex', alignItems:'center', justifyContent:'space-between', borderBottom:'1.5px solid rgba(0,0,0,0.09)', flexWrap:'wrap', gap:8 }}>
-          <span style={{ fontSize:14, fontWeight:500 }}>All Tasks — <span style={{ color:'#b8860b' }}>{all.length}</span> in <span style={{ color:'#b8860b' }}>{PARENT_GROUPS.length}</span> groups</span>
+          <span style={{ fontSize:14, fontWeight:500 }}>All Tasks — <span style={{ color:'#000' }}>{all.length}</span> in <span style={{ color:'#000' }}>{PARENT_GROUPS.length}</span> groups</span>
           <div style={{ display:'flex', gap:7, flexWrap:'wrap', alignItems:'center' }}>
             <button className="btn btn-ghost btn-sm" onClick={expandAll}>Expand All</button>
             <button className="btn btn-ghost btn-sm" onClick={collapseAll}>Collapse All</button>
@@ -248,23 +248,23 @@ export default function Dashboard({ tasks, cfg, team, userName }) {
           return (
             <div key={g.id}>
               {/* Parent row */}
-              <div style={{ display:'grid', gridTemplateColumns:'42px 26px 1fr 90px 90px 70px 70px 90px 80px 80px 60px 90px 80px', gap:6, padding:'10px 16px', background:'#f0f0f3', borderLeft:`3px solid ${hasCrit?'#c0392b':'#b8860b'}`, borderBottom:'1.5px solid rgba(0,0,0,0.09)', alignItems:'center' }}>
+              <div style={{ display:'grid', gridTemplateColumns:'42px 26px 1fr 90px 90px 70px 70px 90px 80px 80px 60px 90px 80px', gap:6, padding:'10px 16px', background:'#f0f0f3', borderLeft:'3px solid #000', borderBottom:'1.5px solid rgba(0,0,0,0.09)', alignItems:'center' }}>
                 <div/>
                 <div><button onClick={()=>toggleGroup(g.id)} style={{ width:22, height:22, borderRadius:4, background:'#e4e4ea', border:'none', cursor:'pointer', fontSize:11, display:'inline-flex', alignItems:'center', justifyContent:'center', color:'#4a4a54' }}>{isCol?'▶':'▼'}</button></div>
                 <div>
                   <div style={{ display:'flex', alignItems:'center', gap:8 }}>
-                    <span style={{ fontSize:15 }}>{g.icon}</span>
+                    <span style={{ fontSize:15 }}></span>
                     <div>
                       <div style={{ fontWeight:700, fontSize:15 }}>{g.name}</div>
                       <div style={{ fontSize:11, color:'#7a7a88', fontFamily:'JetBrains Mono,monospace', marginTop:1 }}>{prog.done}/{prog.total} complete</div>
                     </div>
                   </div>
                   <div style={{ height:5, background:'#e4e4ea', borderRadius:3, overflow:'hidden', marginTop:4, maxWidth:200 }}>
-                    <div style={{ width:`${prog.pct}%`, height:'100%', background:'linear-gradient(90deg,#b8860b,#d4a843)', borderRadius:3, transition:'width .4s' }}/>
+                    <div style={{ width:`${prog.pct}%`, height:'100%', background:'#000', borderRadius:3, transition:'width .4s' }}/>
                   </div>
                 </div>
                 <div style={{ fontSize:11, fontFamily:'JetBrains Mono,monospace', display:'flex', alignItems:'center', gap:4 }}>
-                  <span style={{ width:8, height:8, borderRadius:'50%', background:TEAMS[g.team]?.color, display:'inline-block' }}/>
+                  <span style={{ width:8, height:8, borderRadius:'50%', background:'#000', display:'inline-block' }}/>
                   {TEAMS[g.team]?.name}
                 </div>
                 <div><span style={{ fontSize:11, fontFamily:'JetBrains Mono,monospace', padding:'2px 7px', borderRadius:3, background:'#e4e4ea', color:'#4a4a54' }}>{CATS[g.category]||g.category}</span></div>
@@ -287,7 +287,7 @@ export default function Dashboard({ tasks, cfg, team, userName }) {
                 const isQE=qeOpen===t.id;
                 return (
                   <div key={t.id} style={{ borderBottom:'1.5px solid rgba(0,0,0,0.06)' }}>
-                    <div data-task-id={t.id} style={{ display:'grid', gridTemplateColumns:'42px 26px 1fr 90px 90px 70px 70px 90px 80px 80px 60px 90px 80px', gap:6, padding:'10px 16px', background:'#fff', borderLeft:`3px solid ${isCrit?'#c0392b':'rgba(0,0,0,0.09)'}`, alignItems:'center', cursor:'pointer' }}
+                    <div data-task-id={t.id} style={{ display:'grid', gridTemplateColumns:'42px 26px 1fr 90px 90px 70px 70px 90px 80px 80px 60px 90px 80px', gap:6, padding:'10px 16px', background:'#fff', borderLeft:'3px solid #000', alignItems:'center', cursor:'pointer' }}
                       onMouseEnter={e=>e.currentTarget.style.background='rgba(0,0,0,0.01)'}
                       onMouseLeave={e=>e.currentTarget.style.background='#fff'}>
                       <div><PriBadge p={pri}/></div>
@@ -298,7 +298,7 @@ export default function Dashboard({ tasks, cfg, team, userName }) {
                           <div style={{ display:'flex', alignItems:'center', gap:6 }}>
                             <input autoFocus defaultValue={t.name} id={`ne-${t.id}`} style={{ flex:1, background:'#fff', border:'1.5px solid #b8860b', borderRadius:4, padding:'3px 8px', fontSize:14, fontWeight:500, outline:'none' }}
                               onKeyDown={e=>{ if(e.key==='Enter'){saveField(t.id,'name',e.target.value);setEditingTask(null);} if(e.key==='Escape')setEditingTask(null); }}/>
-                            <button onClick={e=>{e.stopPropagation();const v=document.getElementById(`ne-${t.id}`).value.trim();if(v){saveField(t.id,'name',v);}setEditingTask(null);}} style={{ padding:'3px 10px', background:'#b8860b', color:'#fff', border:'none', borderRadius:4, fontSize:11, fontWeight:700, cursor:'pointer' }}>Save</button>
+                            <button onClick={e=>{e.stopPropagation();const v=document.getElementById(`ne-${t.id}`).value.trim();if(v){saveField(t.id,'name',v);}setEditingTask(null);}} style={{ padding:'3px 10px', background:'#000', color:'#fff', border:'none', borderRadius:4, fontSize:11, fontWeight:700, cursor:'pointer' }}>Save</button>
                             <button onClick={e=>{e.stopPropagation();setEditingTask(null);}} style={{ padding:'3px 8px', background:'#e4e4ea', border:'none', borderRadius:4, fontSize:11, cursor:'pointer', color:'#4a4a54' }}>✕</button>
                           </div>
                         ) : (
@@ -308,21 +308,21 @@ export default function Dashboard({ tasks, cfg, team, userName }) {
                               onMouseLeave={e=>{ e.target.style.borderColor='transparent'; e.target.style.background='transparent'; }}>
                               {t.name}
                             </span>
-                            {ce && <button onClick={e=>{e.stopPropagation();setQeOpen(isQE?null:t.id);}} style={{ marginLeft:8, padding:'1px 7px', fontSize:10, borderRadius:3, border:'1px solid rgba(0,0,0,0.09)', background:'#f0f0f3', color:'#7a7a88', cursor:'pointer', fontFamily:'JetBrains Mono,monospace' }}>✎ edit</button>}
+                            {ce && <button onClick={e=>{e.stopPropagation();setQeOpen(isQE?null:t.id);}} style={{ marginLeft:8, padding:'1px 7px', fontSize:10, borderRadius:3, border:'1px solid #ddd', background:'#f0f0f3', color:'#7a7a88', cursor:'pointer', fontFamily:'JetBrains Mono,monospace' }}>✎ edit</button>}
                           </div>
                         )}
                         <div style={{ fontSize:11, color:'#7a7a88', fontFamily:'JetBrains Mono,monospace', marginTop:2 }}>{t.duration}d{isCrit?' · ⚡ Critical':''}</div>
                       </div>
                       <div style={{ fontSize:11, fontFamily:'JetBrains Mono,monospace', display:'flex', alignItems:'center', gap:4 }}>
-                        <span style={{ width:8, height:8, borderRadius:'50%', background:TEAMS[t.team]?.color, display:'inline-block', flexShrink:0 }}/>
+                        <span style={{ width:8, height:8, borderRadius:'50%', background:'#000', display:'inline-block', flexShrink:0 }}/>
                         {TEAMS[t.team]?.name}
                       </div>
-                      <div><span style={{ fontSize:11, fontFamily:'JetBrains Mono,monospace', padding:'2px 7px', borderRadius:3, background:'#f0f0f3', color:'#4a4a54' }}>{CATS[t.category]||t.category}</span></div>
-                      <div style={{ fontFamily:'JetBrains Mono,monospace', fontSize:12, color:'#1a5fa8', textAlign:'center' }}>{t.procDays||'—'}</div>
-                      <div style={{ fontFamily:'JetBrains Mono,monospace', fontSize:12, color:'#5b4aaa', textAlign:'center' }}>{t.installDays||'—'}</div>
-                      <div style={{ fontFamily:'JetBrains Mono,monospace', fontSize:12, color:'#b8860b' }}>{fmts(t.targetStart)||fmts(t.plannedStart)||'—'}</div>
+                      <div><span style={{ fontSize:11, fontFamily:'JetBrains Mono,monospace', padding:'2px 7px', borderRadius:3, background:'#ebebeb', color:'#000' }}>{CATS[t.category]||t.category}</span></div>
+                      <div style={{ fontFamily:'JetBrains Mono,monospace', fontSize:12, color:'#000', textAlign:'center' }}>{t.procDays||'—'}</div>
+                      <div style={{ fontFamily:'JetBrains Mono,monospace', fontSize:12, color:'#000', textAlign:'center' }}>{t.installDays||'—'}</div>
+                      <div style={{ fontFamily:'JetBrains Mono,monospace', fontSize:12, color:'#000' }}>{fmts(t.targetStart)||fmts(t.plannedStart)||'—'}</div>
                       <div style={{ fontFamily:'JetBrains Mono,monospace', fontSize:12, color:isCrit?'#c0392b':'#4a4a54' }}>{fmts(ct2?.ef)||fmts(t.plannedEnd)||'—'}</div>
-                      <div style={{ fontFamily:'JetBrains Mono,monospace', fontSize:12, color:fl===null?'#7a7a88':fl<0?'#c0392b':fl<7?'#c47d0e':'#1a7a45' }}>{fl!==null?fl+'d':'—'}</div>
+                      <div style={{ fontFamily:'JetBrains Mono,monospace', fontSize:12, color:'#000' }}>{fl!==null?fl+'d':'—'}</div>
                       <div style={{ display:'flex', alignItems:'center', gap:6 }}>
                         <div className="pw" style={{ width:52 }}><div className={`pf ${t.status==='done'?'pf-g':'pf-a'}`} style={{ width:`${t.status==='done'?100:(t.completion||0)}%` }}/></div>
                         <span style={{ fontFamily:'JetBrains Mono,monospace', fontSize:12 }}>{t.status==='done'?100:(t.completion||0)}%</span>
