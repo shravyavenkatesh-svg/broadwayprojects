@@ -74,17 +74,17 @@ export default function AppShell({ user, team, userName, cfg, setCfg, tasks, fix
               <div key={k} style={{ display:'flex', alignItems:'center', gap:8 }}>
                 {i>0 && <span style={{ fontFamily:'Bebas Neue,sans-serif', fontSize:28, color:'#7a7a88', paddingBottom:10 }}>:</span>}
                 <div style={{ textAlign:'center' }}>
-                  <div style={{ fontFamily:'Bebas Neue,sans-serif', fontSize:36, lineHeight:1, color:k==='d'?'#b8860b':'#0d0d0f', minWidth:40 }}>{k==='d'?countdown[k]:pad(countdown[k])}</div>
+                  <div style={{ fontFamily:'Bebas Neue,sans-serif', fontSize:36, lineHeight:1, color:'#000000', minWidth:40 }}>{k==='d'?countdown[k]:pad(countdown[k])}</div>
                   <div style={{ fontSize:9, color:'#7a7a88', fontFamily:'JetBrains Mono,monospace', letterSpacing:1.5 }}>{lbl}</div>
                 </div>
               </div>
             ))}
             <div style={{ marginLeft:10, paddingLeft:14, borderLeft:'1.5px solid rgba(0,0,0,0.18)' }}>
               <div style={{ fontSize:9, color:'#7a7a88', fontFamily:'JetBrains Mono,monospace', letterSpacing:1.2, marginBottom:3 }}>LAUNCH</div>
-              <div style={{ fontSize:13, fontFamily:'JetBrains Mono,monospace', color:'#b8860b', fontWeight:700 }}>25 SEP 2026</div>
+              <div style={{ fontSize:13, fontFamily:'JetBrains Mono,monospace', color:'#000000', fontWeight:700 }}>25 SEP 2026</div>
             </div>
           </div>
-          <span style={{ fontSize:11, fontFamily:'JetBrains Mono,monospace', fontWeight:600, padding:'3px 10px', borderRadius:20, border:`1.5px solid ${t.color}`, color:t.color, background:`${t.color}18` }}>{t.icon} {t.name}</span>
+          <span style={{ fontSize:11, fontFamily:'JetBrains Mono,monospace', fontWeight:600, padding:'3px 10px', borderRadius:20, border:'1.5px solid #000', background:'transparent' }}>{t.name}</span>
           <span style={{ fontSize:13, color:'#4a4a54', fontWeight:500 }}>{userName}</span>
           <button className="btn btn-ghost btn-sm" onClick={()=>signOut(auth)}>Sign Out</button>
         </div>
@@ -93,7 +93,7 @@ export default function AppShell({ user, team, userName, cfg, setCfg, tasks, fix
       {/* Nav */}
       <div style={{ display:'flex', borderBottom:'1.5px solid rgba(0,0,0,0.09)', padding:'0 28px', background:'#fff', overflowX:'auto' }}>
         {tabs.map(([id,lbl])=>(
-          <div key={id} onClick={()=>setTab(id)} style={{ padding:'11px 18px', cursor:'pointer', fontSize:11, letterSpacing:1.5, textTransform:'uppercase', fontFamily:'JetBrains Mono,monospace', fontWeight:500, color:tab===id?'#b8860b':'#7a7a88', borderBottom:`2.5px solid ${tab===id?'#b8860b':'transparent'}`, whiteSpace:'nowrap', transition:'all .15s' }}>
+          <div key={id} onClick={()=>setTab(id)} style={{ padding:'11px 18px', cursor:'pointer', fontSize:11, letterSpacing:1.5, textTransform:'uppercase', fontFamily:'JetBrains Mono,monospace', fontWeight:500, color:tab===id?'#000':'#666', borderBottom:`2.5px solid ${tab===id?'#000':'transparent'}`, whiteSpace:'nowrap', transition:'all .15s' }}>
             {lbl}
           </div>
         ))}
