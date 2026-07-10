@@ -21,6 +21,7 @@ function App() {
   const [fixtures, setFixtures] = useState({});
   const [pos, setPOs] = useState({});
   const [users, setUsers] = useState({});
+  const [projectData, setProjectData] = useState({});
 
   // Init tasks in DB if not present
   const initTasks = async (startDate) => {
@@ -92,6 +93,7 @@ function App() {
       onValue(ref(db, `p/${PID}/fixtures`), snap => setFixtures(snap.val() || {}));
       onValue(ref(db, `p/${PID}/pos`), snap => setPOs(snap.val() || {}));
       onValue(ref(db, `users`), snap => setUsers(snap.val() || {}));
+      onValue(ref(db, `p/${PID}/projectTracker`), snap => setProjectData(snap.val() || {}));
       onValue(ref(db, `p/${PID}/settings`), snap => {
         if(snap.exists()){
           const s=snap.val();
@@ -132,6 +134,7 @@ function App() {
       fixtures={fixtures}
       pos={pos}
       users={users}
+      projectData={projectData}
     />
   );
 }
