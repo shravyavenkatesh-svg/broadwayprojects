@@ -9,11 +9,12 @@ import FixtureTracker from './FixtureTracker';
 import GanttView from './GanttView';
 import AdminPanel from './AdminPanel';
 import POTracker from './POTracker';
+import ProjectTracker from './ProjectTracker';
 
-const TABS_ADMIN = [['dashboard','Dashboard'],['fixtures','Fixtures'],['pos','PO Tracker'],['gantt','Gantt'],['admin','Admin Panel']];
-const TABS_USER  = [['dashboard','Dashboard'],['fixtures','Fixtures'],['pos','PO Tracker'],['gantt','Gantt']];
+const TABS_ADMIN = [['dashboard','Dashboard'],['projects','Projects'],['fixtures','Fixtures'],['pos','PO Tracker'],['gantt','Gantt'],['admin','Admin Panel']];
+const TABS_USER  = [['dashboard','Dashboard'],['projects','Projects'],['fixtures','Fixtures'],['pos','PO Tracker'],['gantt','Gantt']];
 
-export default function AppShell({ user, team, userName, cfg, setCfg, tasks, fixtures, pos, users }) {
+export default function AppShell({ user, team, userName, cfg, setCfg, tasks, fixtures, pos, users, projectData }) {
   const [tab, setTab] = useState('dashboard');
   const [countdown, setCountdown] = useState({ d:'--',h:'--',m:'--',s:'--' });
   const [emailCfg, setEmailCfg] = useState({});
@@ -53,6 +54,7 @@ export default function AppShell({ user, team, userName, cfg, setCfg, tasks, fix
 
   const renderTab = () => {
     if (tab === 'dashboard') return <Dashboard tasks={tasks} cfg={cfg} team={team} userName={userName} />;
+    if (tab === 'projects')  return <ProjectTracker projectData={projectData} team={team} userName={userName} />;
     if (tab === 'fixtures')  return <FixtureTracker fixtures={fixtures} team={team} userName={userName} />;
     if (tab === 'pos')       return <POTracker pos={pos} team={team} userName={userName} emailCfg={emailCfg} />;
     if (tab === 'gantt')     return <GanttView tasks={tasks} cfg={cfg} />;
